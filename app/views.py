@@ -58,7 +58,7 @@ def login():
                 flash('Logged in successfully.', 'success')
                 
                 next_page = request.args.get('next')
-            return redirect(next_page or url_for('home'))
+            return redirect(url_for('home'))
         else:
             flash('Username or Password is incorrect.', 'danger')
 
@@ -106,17 +106,12 @@ def add_header(response):
     response.headers['Cache-Control'] = 'public, max-age=0'
     return response
     
-@app.route('/about')
-def about():
-    """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
-
-
 @app.route('/secure-page')
 @login_required
 def secure_page():
     """Render a secure page on our website that only logged in users can access."""
     return render_template('secure_page.html')
+
 
 
 @app.errorhandler(404)
